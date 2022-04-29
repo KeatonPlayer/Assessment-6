@@ -7,6 +7,7 @@ function shuffleArray(array) {
     return arrCopy
 }
 
+
 module.exports = {
     shuffleArray
 }

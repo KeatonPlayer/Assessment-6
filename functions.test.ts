@@ -1,5 +1,8 @@
 const {shuffleArray} = require('./utils')
 
 describe('shuffleArray should', () => {
-    // CODE HERE
+    test('Array is returned', function(){
+    expect(shuffleArray(Array).toHaveReturned())
+    })
+
 })
