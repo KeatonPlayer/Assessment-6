@@ -1,11 +1,10 @@
 const express = require('express')
 const path = require('path')
 const app = express()
-app.use(express.static(path.join(__dirname, '../public')))
-
 const {bots, playerRecord} = require('./data')
 const {shuffleArray} = require('./utils')
 
+app.use(express.static('public'))
 app.use(express.json())
 
 app.get('/api/robots', (req, res) => {
