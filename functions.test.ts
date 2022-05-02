@@ -6,8 +6,10 @@ describe('shuffleArray should', () => {
     expect(Array.isArray(shuffleArray(testArr))).toBe(true)
     })
      
-it('should check array length to be the same as output', function(){
+    test('should check array length to be the same as output', function(){
     expect(shuffleArray(testArr)).toHaveLength(testArr.length)
 })
 })
+
+
 

@@ -4,12 +4,19 @@ const app = express()
 const {bots, playerRecord} = require('./data')
 const {shuffleArray} = require('./utils')
 app.use(express.json())
+var Rollbar = require('rollbar')
+var rollbar = new Rollbar({
+  accessToken: '86360e3dd2f34623af9e5997253c9620',
+  captureUncaught: true,
+  captureUnhandledRejections: true,
+})
 app.use(express.static(path.join(__dirname, 'public')))
+
 app.get('/api/robots', (req, res) => {
     try {
         res.status(200).send(botsArr)
     } catch (error) {
-        console.log('ERROR GETTING BOTS', error)
+       rollbar.critical('ERROR GETTING BOTS', error)
         res.sendStatus(400)
     }
 })
@@ -21,7 +28,7 @@ app.get('/api/robots/five', (req, res) => {
         let compDuo = shuffled.slice(6, 8)
         res.status(200).send({choices, compDuo})
     } catch (error) {
-        console.log('ERROR GETTING FIVE BOTS', error)
+        rollbar.error('ERROR GETTING FIVE BOTS', error)
         res.sendStatus(400)
     }
 })
@@ -52,7 +59,7 @@ app.post('/api/duel', (req, res) => {
             res.status(200).send('You won!')
         }
     } catch (error) {
-        console.log('ERROR DUELING', error)
+        rollbar.warning('ERROR DUELING', error)
         res.sendStatus(400)
     }
 })
@@ -61,7 +68,7 @@ app.get('/api/player', (req, res) => {
     try {
         res.status(200).send(playerRecord)
     } catch (error) {
-        console.log('ERROR GETTING PLAYER STATS', error)
+        rollbar.error('ERROR GETTING PLAYER STATS', error)
         res.sendStatus(400)
     }
 })
